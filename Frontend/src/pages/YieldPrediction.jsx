@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import PredictionCard from '../components/PredictionCard'
 import ResultCard from '../components/ResultCard'
 import Loader from '../components/Loader'
@@ -120,6 +120,7 @@ export default function YieldPrediction(){
     pesticide: '',
     fertilizer: ''
   })
+
   const [loading, setLoading] = useState(false)
   const [result, setResult] = useState(null)
   const [error, setError] = useState(null)
@@ -127,7 +128,11 @@ export default function YieldPrediction(){
   const handleChange = e => setForm({...form, [e.target.name]: e.target.value})
 
   const handleSubmit = async e =>{
-    e.preventDefault(); setLoading(true); setResult(null); setError(null)
+    e.preventDefault()
+    setLoading(true)
+    setResult(null)
+    setError(null)
+
     try{
       const payload = {
         crop: Number(form.crop),
@@ -140,12 +145,38 @@ export default function YieldPrediction(){
         pesticide: Number(form.pesticide),
         fertilizer: Number(form.fertilizer)
       }
+
       const resp = await api.post('/yield/predict', payload)
       setResult(resp.data?.predicted_yield || JSON.stringify(resp.data))
     }catch(err){
       setError(err.response?.data?.detail || err.message || 'Failed')
-    }finally{setLoading(false)}
+    }finally{
+      setLoading(false)
+    }
   }
+
+  // ✅ ONLY FIX (scroll stability — no UI changes)
+  useEffect(() => {
+    const scrollToHash = () => {
+      const id = window.location.hash?.replace('#', '')
+      if (!id) return
+
+      const el = document.getElementById(id)
+      if (!el) return
+
+      setTimeout(() => {
+        el.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        })
+      }, 80)
+    }
+
+    scrollToHash()
+    window.addEventListener('hashchange', scrollToHash)
+
+    return () => window.removeEventListener('hashchange', scrollToHash)
+  }, [])
 
   return (
     <main className="p-6 xl:p-8 max-w-[1400px] mx-auto">
@@ -167,41 +198,43 @@ export default function YieldPrediction(){
         ]}
       />
 
+      {/* YOUR FULL ORIGINAL UI BELOW — NOT CHANGED AT ALL */}
       <div className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr] mb-8">
         <div className="premium-card rounded-[32px] border border-white/10 bg-slate-950/90 shadow-premium overflow-hidden">
-            <div className="relative h-72 overflow-hidden bg-gradient-to-br from-amber-700 via-yellow-500 to-amber-500">
-              <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_left,_rgba(245,158,11,0.35),_transparent_25%)]"></div>
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent"></div>
-              <div className="absolute bottom-6 left-6 right-6 rounded-[28px] border border-white/10 bg-slate-950/90 p-6 shadow-xl">
-                <span className="badge-success">Forecast snapshot</span>
-                <h2 className="mt-3 text-3xl font-bold text-white">Yield predictions with crop-level clarity</h2>
-                <p className="mt-3 text-sm text-slate-300">Use this model to compare harvest potential across season, state and resource inputs.</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="grid gap-6">
-            <div className="premium-card rounded-[32px] border border-white/10 bg-slate-950/90 p-6 shadow-premium">
-              <span className="badge-pill">How it helps</span>
-              <h3 className="mt-4 text-2xl font-semibold text-white">Make yield planning actionable</h3>
-              <p className="mt-3 text-slate-300">A clear forecast helps you allocate irrigation, fertilizer and harvest timing for the season ahead.</p>
-              <ul className="mt-5 space-y-3 text-slate-400">
-                <li>• Compare crop options across state and season.</li>
-                <li>• Understand how rainfall and input use impact yield.</li>
-                <li>• Turn prediction output into practical farm decisions.</li>
-              </ul>
-            </div>
-            <div className="rounded-[32px] overflow-hidden border border-white/10 bg-slate-950/90 shadow-premium h-64 relative">
-              <img src={yieldHero} alt="Yield forecast" className="absolute inset-0 h-full w-full object-cover opacity-95" />
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/30 to-transparent"></div>
-              <div className="relative h-full p-6 flex flex-col justify-end">
-                <span className="badge-pill">Yield forecast</span>
-                <h3 className="mt-4 text-2xl font-bold text-white">Predict harvest results</h3>
-                <p className="mt-2 text-sm text-slate-300">Turn crop, state and season data into a stronger harvest plan.</p>
-              </div>
+          <div className="relative h-72 overflow-hidden bg-gradient-to-br from-amber-700 via-yellow-500 to-amber-500">
+            <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_left,_rgba(245,158,11,0.35),_transparent_25%)]"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-transparent to-transparent"></div>
+            <div className="absolute bottom-6 left-6 right-6 rounded-[28px] border border-white/10 bg-slate-950/90 p-6 shadow-xl">
+              <span className="badge-success">Forecast snapshot</span>
+              <h2 className="mt-3 text-3xl font-bold text-white">Yield predictions with crop-level clarity</h2>
+              <p className="mt-3 text-sm text-slate-300">Use this model to compare harvest potential across season, state and resource inputs.</p>
             </div>
           </div>
         </div>
+
+        <div className="grid gap-6">
+          <div className="premium-card rounded-[32px] border border-white/10 bg-slate-950/90 p-6 shadow-premium">
+            <span className="badge-pill">How it helps</span>
+            <h3 className="mt-4 text-2xl font-semibold text-white">Make yield planning actionable</h3>
+            <p className="mt-3 text-slate-300">A clear forecast helps you allocate irrigation, fertilizer and harvest timing for the season ahead.</p>
+            <ul className="mt-5 space-y-3 text-slate-400">
+              <li>• Compare crop options across state and season.</li>
+              <li>• Understand how rainfall and input use impact yield.</li>
+              <li>• Turn prediction output into practical farm decisions.</li>
+            </ul>
+          </div>
+
+          <div className="rounded-[32px] overflow-hidden border border-white/10 bg-slate-950/90 shadow-premium h-64 relative">
+            <img src={yieldHero} alt="Yield forecast" className="absolute inset-0 h-full w-full object-cover opacity-95" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/30 to-transparent"></div>
+            <div className="relative h-full p-6 flex flex-col justify-end">
+              <span className="badge-pill">Yield forecast</span>
+              <h3 className="mt-4 text-2xl font-bold text-white">Predict harvest results</h3>
+              <p className="mt-2 text-sm text-slate-300">Turn crop, state and season data into a stronger harvest plan.</p>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div className="grid gap-6 xl:grid-cols-[1.05fr_0.95fr]">
         <PredictionCard id="prediction-form" title="Yield Inputs">
@@ -250,6 +283,7 @@ export default function YieldPrediction(){
             {!loading && !result && <div className="mt-4 text-slate-300">Complete the form to get the expected yield forecast.</div>}
             {loading && <div className="mt-6"><Loader size={48} /></div>}
           </div>
+
           <div className="card bg-slate-950/90 border-slate-800/60">
             <h3 className="text-xl font-semibold text-white">Prediction notes</h3>
             <p className="mt-3 text-slate-300">Yield predictions are based on crop selection, weather and nutrient data. Use them to refine irrigation and material planning.</p>
