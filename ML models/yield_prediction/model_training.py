@@ -2,7 +2,11 @@ from sklearn.ensemble import RandomForestRegressor
 from preprocessing import X_train_scaled
 from train_test_split import y_train
 
-model = RandomForestRegressor()
+model = RandomForestRegressor(
+    n_estimators=30,
+    max_depth=8,
+    random_state=42
+)
 
 model.fit(X_train_scaled, y_train)
 
