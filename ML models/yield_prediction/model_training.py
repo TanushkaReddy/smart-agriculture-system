@@ -3,9 +3,10 @@ from preprocessing import X_train_scaled
 from train_test_split import y_train
 
 model = RandomForestRegressor(
-    n_estimators=30,
-    max_depth=8,
-    random_state=42
+    n_estimators=20,
+    max_depth=6,
+    random_state=42,
+    n_jobs=-1
 )
 
 model.fit(X_train_scaled, y_train)
