@@ -68,7 +68,7 @@ export default function FertilizerPrediction() {
         potassium: Number(form.potassium)
       }
 
-      const resp = await api.post(`${import.meta.env.VITE_API_URL}/fertilizer/predict`, payload)
+      const resp = await api.post('/fertilizer/predict', payload)
 
       setResult(
         resp.data?.recommended_fertilizer ||
