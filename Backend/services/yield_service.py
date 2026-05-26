@@ -3,18 +3,31 @@ from models_loader import yield_model
 
 def predict_yield(data):
 
-    input_df = pd.DataFrame([{
-        "Crop": data.crop,
-        "Crop_Year": data.crop_year,
-        "Season": data.season,
-        "State": data.state,
-        "Area": data.area,
-        "Production": data.production,
-        "Annual_Rainfall": data.rainfall,
-        "Pesticide": data.pesticide,
-        "Fertilizer": data.fertilizer
-    }])
+    # FORCE EXACT ORDER (VERY IMPORTANT)
+    columns = [
+        "Crop",
+        "Crop_Year",
+        "Season",
+        "State",
+        "Area",
+        "Production",
+        "Annual_Rainfall",
+        "Fertilizer",
+        "Pesticide"
+    ]
+
+    input_df = pd.DataFrame([[ 
+        data.crop,
+        data.crop_year,
+        data.season,
+        data.state,
+        data.area,
+        data.production,
+        data.rainfall,
+        data.fertilizer,
+        data.pesticide
+    ]], columns=columns)
 
     prediction = yield_model.predict(input_df)
 
-    return prediction[0]
+    return float(prediction[0])
