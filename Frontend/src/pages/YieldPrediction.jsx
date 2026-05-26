@@ -146,7 +146,7 @@ export default function YieldPrediction(){
         fertilizer: Number(form.fertilizer)
       }
 
-      const resp = await api.post('/yield/predict', payload)
+      const resp = await api.post(`${import.meta.env.VITE_API_URL}/yield/predict`, payload)
       setResult(resp.data?.predicted_yield || JSON.stringify(resp.data))
     }catch(err){
       setError(err.response?.data?.detail || err.message || 'Failed')

@@ -42,7 +42,7 @@ export default function CropPrediction(){
         rainfall: Number(form.rainfall)
       }
 
-      const resp = await api.post('/crop/predict', payload)
+      const resp = await api.post(`${import.meta.env.VITE_API_URL}/crop/predict`, payload)
       setResult(resp.data?.recommended_crop || JSON.stringify(resp.data))
     } catch (err) {
       setError(err.response?.data?.detail || err.message || 'Prediction failed')
