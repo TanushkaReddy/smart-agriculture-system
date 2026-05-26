@@ -1,0 +1,26 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="c" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#020617" />
+      <stop offset="1" stop-color="#020617" stop-opacity="0.4" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" rx="48" fill="#020617" />
+  <circle cx="240" cy="180" r="84" fill="#f59e0b" opacity="0.22" />
+  <circle cx="940" cy="200" r="100" fill="#34d399" opacity="0.16" />
+  <path d="M1200 460C1040 440 980 520 900 530C820 540 760 490 700 480C640 470 580 500 520 520C460 540 400 520 360 500C320 480 260 470 220 490C180 510 140 520 0 520V800H1200V460Z" fill="#0f172a" />
+  <rect x="140" y="260" width="260" height="320" rx="36" fill="#08111f" stroke="#facc15" stroke-width="5" />
+  <path d="M200 340H340" stroke="#f59e0b" stroke-width="18" stroke-linecap="round" />
+  <path d="M200 420H320" stroke="#fde68a" stroke-width="18" stroke-linecap="round" />
+  <path d="M200 500H280" stroke="#34d399" stroke-width="18" stroke-linecap="round" />
+  <rect x="460" y="180" width="280" height="380" rx="42" fill="#08111f" stroke="#22d3ee" stroke-width="5" />
+  <path d="M520 250H720" stroke="#22d3ee" stroke-width="18" stroke-linecap="round" />
+  <path d="M520 340H690" stroke="#38bdf8" stroke-width="18" stroke-linecap="round" />
+  <path d="M520 430H660" stroke="#7dd3fc" stroke-width="18" stroke-linecap="round" />
+  <path d="M520 520H620" stroke="#34d399" stroke-width="18" stroke-linecap="round" />
+  <rect x="800" y="300" width="260" height="240" rx="40" fill="#08111f" stroke="#4ade80" stroke-width="5" />
+  <path d="M840 380L900 310L960 380" stroke="#34d399" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M840 470L900 390L960 470" stroke="#f59e0b" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" />
+  <rect x="120" y="100" width="300" height="90" rx="24" fill="rgba(255,255,255,0.06)" />
+  <path d="M170 150H290" stroke="#f59e0b" stroke-width="14" stroke-linecap="round" />
+</svg>
