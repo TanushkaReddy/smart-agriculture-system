@@ -4,7 +4,7 @@ from services.crop_service import predict_crop
 
 router = APIRouter()
 
-@router.post("crop/predict")
+@router.post("/predict")
 def crop_predict(data: CropInput):
     result = predict_crop(data)
     return {"recommended_crop": result}
