@@ -147,7 +147,7 @@ export default function YieldPrediction(){
       }
 
       const resp = await api.post('/yield/predict', payload)
-      setResult(resp.data?.predicted_yield || JSON.stringify(resp.data))
+      setResult(Number(resp.data.predicted_yield))
     }catch(err){
       setError(err.response?.data?.detail || err.message || 'Failed')
     }finally{
@@ -155,7 +155,6 @@ export default function YieldPrediction(){
     }
   }
 
-  // ✅ ONLY FIX (scroll stability — no UI changes)
   useEffect(() => {
     const scrollToHash = () => {
       const id = window.location.hash?.replace('#', '')
@@ -198,7 +197,7 @@ export default function YieldPrediction(){
         ]}
       />
 
-      {/* YOUR FULL ORIGINAL UI BELOW — NOT CHANGED AT ALL */}
+      
       <div className="grid gap-6 xl:grid-cols-[1.15fr_0.85fr] mb-8">
         <div className="premium-card rounded-[32px] border border-white/10 bg-slate-950/90 shadow-premium overflow-hidden">
           <div className="relative h-72 overflow-hidden bg-gradient-to-br from-amber-700 via-yellow-500 to-amber-500">
