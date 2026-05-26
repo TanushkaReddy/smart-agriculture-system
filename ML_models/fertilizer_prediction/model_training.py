@@ -1,5 +1,5 @@
 from sklearn.tree import DecisionTreeClassifier
-from train_test_split import y_train,X_train
+from encoding import X_train, y_train
 
 model = DecisionTreeClassifier()
 

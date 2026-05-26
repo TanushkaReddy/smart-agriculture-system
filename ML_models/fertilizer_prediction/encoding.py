@@ -14,4 +14,6 @@ for col in categorical_cols:
     X_test[col] = le.transform(X_test[col])
     encoders[col] = le
 
+from train_test_split import y_train, y_test   # ← ADD THIS
+
 print("Encoding Completed")
