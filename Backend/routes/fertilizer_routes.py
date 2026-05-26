@@ -7,4 +7,6 @@ router = APIRouter()
 @router.post("/predict")
 def fertilizer_predict(data: FertilizerInput):
     result = predict_fertilizer(data)
-    return {"recommended_fertilizer": result}
+    return {
+        "recommended_fertilizer": int(result)
+    }

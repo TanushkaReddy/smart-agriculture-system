@@ -1,7 +1,8 @@
 import pandas as pd
-from models_loader import fertilizer_model, fertilizer_scaler
+from models_loader import fertilizer_model
 
 def predict_fertilizer(data):
+    # Create input dataframe
     input_df = pd.DataFrame([{
         "Temparature": data.temperature,
         "Humidity": data.humidity,
@@ -12,8 +13,11 @@ def predict_fertilizer(data):
         "Potassium": data.potassium,
         "Phosphorous": data.phosphorus,
     }])
-    if fertilizer_scaler is not None:
-        input_data = fertilizer_scaler.transform(input_df)
-    else:
-        input_data = input_df.values
-    return fertilizer_model.predict(input_data)[0]
+
+    # IMPORTANT: RandomForest / DecisionTree DO NOT need transform
+    input_data = input_df.values
+
+    # Predict
+    prediction = fertilizer_model.predict(input_data)[0]
+
+    return prediction

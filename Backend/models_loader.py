@@ -17,11 +17,6 @@ except FileNotFoundError:
     print("Warning: crop_scaler.pkl not found. Crop prediction will use raw input values.")
 
 fertilizer_model = joblib.load(os.path.join(MODEL_PATH, "fertilizer_model.pkl"))
-try:
-    fertilizer_scaler = joblib.load(os.path.join(MODEL_PATH, "fertilizer_scaler.pkl"))
-except FileNotFoundError:
-    fertilizer_scaler = None
-    print("Warning: fertilizer_scaler.pkl not found. Fertilizer prediction will use raw input values.")
 
 yield_model = joblib.load(os.path.join(MODEL_PATH, "yield_model.pkl"))
 
