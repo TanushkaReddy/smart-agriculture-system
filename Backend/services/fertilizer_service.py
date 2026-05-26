@@ -2,7 +2,7 @@ import pandas as pd
 from models_loader import fertilizer_model
 
 def predict_fertilizer(data):
-    # Create input dataframe
+
     input_df = pd.DataFrame([{
         "Temparature": data.temperature,
         "Humidity": data.humidity,
@@ -14,10 +14,9 @@ def predict_fertilizer(data):
         "Phosphorous": data.phosphorus,
     }])
 
-    # IMPORTANT: RandomForest / DecisionTree DO NOT need transform
-    input_data = input_df.values
+    prediction = fertilizer_model.predict(input_df)
 
-    # Predict
-    prediction = fertilizer_model.predict(input_data)[0]
+    # 🔥 convert encoded value → real name
+    fertilizer_name = fertilizer_model.inverse_transform([prediction[0]])
 
-    return prediction
+    return fertilizer_name[0]
