@@ -1,9 +1,8 @@
-from sklearn.ensemble import RandomForestClassifier
-from preprocessing import X_train_scaled
-from train_test_split import y_train
+from sklearn.tree import DecisionTreeClassifier
+from train_test_split import y_train,X_train
 
-model = RandomForestClassifier()
+model = DecisionTreeClassifier()
 
-model.fit(X_train_scaled, y_train)
+model.fit(X_train, y_train)
 
 print("Model Training Completed")
